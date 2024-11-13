@@ -3,7 +3,7 @@ import asyncio
 from agent import BaseAgent, ResponseHandler, ResponseChecker
 from config import Config
 
-from prompt import (
+from scripts.prompt import (
     request_analyse_prompt,
     request_analyse_system,
     workflow_analyse_prompt,
@@ -48,16 +48,16 @@ class RequestAnalyst(BaseAgent):
         return response
     
 class WorkflowAnalyst(BaseAgent):
-    system = workflow_analyse_system #TODO
+    system = workflow_analyse_system
     actions_template={
         "initial":{
-            "prompt":workflow_analyse_prompt, #TODO
+            "prompt":workflow_analyse_prompt,
             "keyword": [
                 "question",
                 "tool_name",
                 "tool_doc",
                 "action_test_code"
-                ], #TODO
+                ],
         },
     }
     def __init__(self) -> None:

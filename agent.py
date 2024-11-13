@@ -103,13 +103,11 @@ class BaseAgent:
 class ResponseHandler:
     @staticmethod
     def get_xml_tag_content(text,tag_name) -> str:
-        # 跨行匹配
         results = re.findall(f'<{tag_name}>(.*?)</{tag_name}>', text, re.S)
         return results[0]
     
     @staticmethod
     def get_xml_tag_list_content(text,tag_name) -> str:
-        # 跨行匹配
         results = re.findall(f'<{tag_name}>(.*?)</{tag_name}>', text, re.S)
         return results
     
@@ -312,8 +310,6 @@ class PromptEngineer(BaseAgent):
         return response
         
 class FileAnalyst(BaseAgent):
-    #TODO
-    """等待重构，目前这个agent不太行，至少对csv增强一下"""
     system = file_agent_system
     actions_template={
         "initial":{
@@ -657,15 +653,12 @@ class ActionDesigner(BaseAgent):
         actions = []
         for stage in stages:
             tasks.append({
-                "stage":stage, #TODO
-                #"task":asyncio.create_task(self.action_design(stage))
+                "stage":stage,
             })
         
         for task in tasks:
-            #response = await task["task"]
             actions.append({
                 "stage":task["stage"],
-                #"action":response #TODO: "stage"未使用
             })
         self.task.status.actions = actions
 
@@ -999,13 +992,12 @@ class Programmer(BaseAgent):
             "finish": False,
             "code": action_code,
             "retry": retry_times, 
-            "files":[],#TODO
+            "files":[],
             "path":self.config.TASK_DIR,
         })
         self.task.status.status_update("code")
         can_ignore = self.check_can_ignore(action)
         can_split = self.check_can_split(action)
-        #TODO
         can_split = False
         if can_ignore:
             chat_action = "ignore"
@@ -1019,27 +1011,17 @@ class Programmer(BaseAgent):
     def action_task_posting(self, action, programmer_code, tester_code, index, programmer_session, tester_session):
         action_code = get_action_code(programmer_code, tester_code)
         output = self.action_execute(action_code, f"test{index}")
-        """
-        reason 获取一次
-        或 resource_pool 获取一次
-        记住之前的session，每个action一个session
-        修一下
-        """
         result = output["result"]
         excepted = output["excepted"]
         data = output["data"]
-        #TODO
         if not result:
             chat_action = "error" if excepted else "rethink"
             response = self.get_reason(data, chat_action, tester_session)
             test_result = False
             test_reason = response["reason"]
             if test_result:
-                # 重新生成test代码
                 tester_code = self.fix_test_code(tester_session)
             else:
-                # 生成action代码
-                # 更新test_session
                 programmer_code = self.fix_programming_code(test_reason, programmer_session)
                 tester_session = self.create_chatsession(self.tester_system)
                 tester_code = self.get_tester_code(action, programmer_code, f"test{index}", tester_session)
@@ -1172,64 +1154,3 @@ class SummaryAnalyst(BaseAgent):
         })
         response = asyncio.run(session.chat(prompt))
         return response
-
-
-if __name__ == "__main__":
-    from utils import generate_task_id
-    config = Config(generate_task_id())
-    info = {
-        "question":"对vcf文件{LJT-lung.pass.vcf}，进行变异注释生成maf文件",
-        "files":[
-            {
-                "name":"LJT-lung.pass.vcf",
-                "path":"/Users/sunjingbo/Desktop/work/BioinfoGPT2/data/LJT-lung.pass.vcf"
-            }
-        ]
-    }
-    info = {
-        "question": "现有一个数据文件boxplot.tsv，每一行是一个独立的样本，其中\"Sample\"列是样本名，\"Age_Group\"列是不同的年龄段分组，\"Age\"是年龄，请用t.test分析\"Young Adult\"和\"Adult\"两组间\"WBC\"是否存在差异。",
-        "files": [
-          {
-            "name": "boxplot.tsv",
-            "path": "/mnt/huangwei/BioinfoGPT/test2_data/boxplot.tsv"
-          }
-        ]
-      }
-    import os
-    os.makedirs(
-        os.path.join(config.TASK_DIR,config.get_task())
-    )
-    task = Task(info, config)
-    linguist = Linguist(task)
-    translator = Translator(task)
-    prompt_engineer = PromptEngineer(task)
-    file_analyst = FileAnalyst(task)
-    tool_scorer = ToolScorer(task)
-    tool_descriptor = ToolDescriptor(task)
-    tool_rescorer = ToolReScorer(task)
-    workflow_designer = WorkflowDesigner(task)
-    tool_analyst = ToolAnasyst(task)
-    workflow_formatter = WorkflowFormatter(task)
-    action_designer = ActionDesigner(task)
-    programmer = Programmer(task)
-    summary_analyst = SummaryAnalyst(task)
-    workflow_redesigner = WorkflowReDesigner(task)
-
-    linguist.check_English_task()
-    translator.translate_question()
-    prompt_engineer.refine_prompt()
-    asyncio.run(file_analyst.analyse_files())
-    asyncio.run(tool_scorer.tools_score())
-    asyncio.run(tool_descriptor.tools_describe())
-    asyncio.run(tool_rescorer.tools_score())
-    asyncio.run(tool_descriptor.tools_describe())
-    workflow_designer.workflow_design()
-    asyncio.run(tool_analyst.tools_analyse())
-    workflow_formatter.workflow_format()
-    asyncio.run(action_designer.actions_design())
-    ok, suggestion = programmer.programming()
-    if not ok:
-        workflow_redesigner.workflow_redesign(suggestion)
-    summary_analyst.summary()
-    
-    task.status.save()

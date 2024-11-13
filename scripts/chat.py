@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from llm import llmcall,llmresponse
+from scripts.llm import llmcall,llmresponse
 
 class ChatSession:
     def __init__(self, model, temperature, config, messages=None) -> None:

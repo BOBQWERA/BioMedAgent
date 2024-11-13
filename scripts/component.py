@@ -8,7 +8,7 @@ from typing import Any
 from config import Config
 from utils import yprint,generate_task_id
 
-from prompt import file_appendix_prompt
+from scripts.prompt import file_appendix_prompt
 from lab.file_reader import file_reader
 
 
