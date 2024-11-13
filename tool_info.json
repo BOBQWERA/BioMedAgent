@@ -1,0 +1,1702 @@
+{
+    "adaboost": {
+        "tool_name": "adaboost",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is AdaBoost algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "bam_to_vcf": {
+        "tool_name": "bam_to_vcf",
+        "description": "GATK haplotype caller to identify genomic variants, it converting BAM alignment files of individual samples into VCF (Variant Call Format) format",
+        "input": [
+            {
+                "name": "bam_file",
+                "type": "file",
+                "description": "BAM alignment files"
+            }
+        ],
+        "output": [
+            {
+                "name": "vcf_file",
+                "type": "file",
+                "description": "Variant Call Format files"
+            }
+        ]
+    },
+    "bam_to_vcf_mutect2": {
+        "tool_name": "bam_to_vcf_mutect2",
+        "description": "GATK mutect2 caller to identify somatic variants, it converting BAM alignment files of paired samples (tumor and normal) into VCF (Variant Call Format) format",
+        "input": [
+            {
+                "name": "bam_file",
+                "type": "file",
+                "description": "BAM alignment files of tumor"
+            },
+            {
+                "name": "bam_file",
+                "type": "file",
+                "description": "BAM alignment files of normal"
+            }
+        ],
+        "output": [
+            {
+                "name": "vcf_file",
+                "type": "file",
+                "description": "somatic Variant Call Format files"
+            }
+        ]
+    },
+    "basicunet": {
+        "tool_name": "basicunet",
+        "description": "Construct a cell segmentation model with basicunet using the training dataset of pathological images.",
+        "input": [
+            {
+                "name": "training_dataset_path",
+                "type": "file",
+                "description": "training dataset path, Compressed file containing training data"
+            },
+            {
+                "name": "cell_type",
+                "type": "string",
+                "description": "The types of cells to be divided can be inflammatory, epithelial, spindle shaped, all, where inflammatory, epithelial and spindle shaped represent inflammatory cells respectively. epithelial cell, spindle shaped cell, and all stands for dividing all type of cells."
+            }
+        ],
+        "output": [
+            {
+                "name": "model_file_path",
+                "type": "file",
+                "description": "cell segmentation model file"
+            }
+        ]
+    },
+    "basicunet_predict": {
+        "tool_name": "basicunet_predict",
+        "description": "Using basicunet model to perform cell segmentation on testing dataset of pathological images.",
+        "input": [
+            {
+                "name": "testing_dataset_path",
+                "type": "file",
+                "description": "testing dataset path, Compressed file containing testing data"
+            },
+            {
+                "name": "model_file_path",
+                "type": "file",
+                "description": "cell segmentation model file"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_file_path",
+                "type": "folder path",
+                "description": "cell segmentation result file path"
+            }
+        ]
+    },
+    "bwa_samtools_sambamba": {
+        "tool_name": "bwa_samtools_sambamba",
+        "description": "This tool convert fastq files into alignment BAM files. It firstly uses BWA for sequence alignment, then use Samtools convert the alignment results into BAM file, and finally uses Sambamba for sorting the Bam file.",
+        "input": [
+            {
+                "name": "fastq_file1",
+                "type": "file",
+                "description": "In high-throughput sequencing, one of the two related FASTQ files obtained contains the sequence information and quality scores of one end of a DNA fragment."
+            },
+            {
+                "name": "fastq_file2",
+                "type": "file",
+                "description": "In high-throughput sequencing, one of the two related FASTQ files obtained contains the sequence information and quality scores of one end of a DNA fragment."
+            },
+            {
+                "name": "file_type_flag",
+                "type": "string",
+                "description": "The type of fastq file (\"tumor\" or \"normal\")"
+            }
+        ],
+        "output": [
+            {
+                "name": "bam_file",
+                "type": "file",
+                "description": "BAM alignment files"
+            }
+        ]
+    },
+    "calculate_classify_metrics": {
+        "tool_name": "calculate_classify_metrics",
+        "description": "This is a tool for calculating evaluation metrics for classification tasks. Input a prediction file and input the column name of the label column and the column name of the prediction column in the prediction file. This tool is then used to calculate the evaluation metrics for the classification. The tool finally outputs a result file of evaluation metrics. And output four floating point numbers, namely accuracy, precision, recall, and F1 score.",
+        "input": [
+            {
+                "name": "csv_file",
+                "type": "file",
+                "description": "This is the input csv file. It contains label columns and predicted value columns"
+            },
+            {
+                "name": "target_col",
+                "type": "string",
+                "description": "This is the column name of the label column in the input csv file. it is a string"
+            },
+            {
+                "name": "predicted_col",
+                "type": "string",
+                "description": "This is the column name of the predicted value column in the input csv file. it is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The result file contains the evaluation metrics of the classification task, such as TP, TN, FP, FN, accuracy, precision, recall, f1 score. It is a csv file"
+            },
+            {
+                "name": "accuracy",
+                "type": "float",
+                "description": "This is the output accuracy value. It is a floating point number"
+            },
+            {
+                "name": "precision",
+                "type": "float",
+                "description": "This is the output precision value. It is a floating point number"
+            },
+            {
+                "name": "recall",
+                "type": "float",
+                "description": "This is the output recall value. It is a floating point number"
+            },
+            {
+                "name": "f1_score",
+                "type": "float",
+                "description": "This is the output f1_score value. It is a floating point number"
+            }
+        ]
+    },
+    "cel2matrix": {
+        "tool_name": "cel2matrix",
+        "description": "Cel2matrix is a tool for extracting expression profile data from CEL files and annotating probes.",
+        "input": [
+            {
+                "name": "CEL_file",
+                "type": "Folder path",
+                "description": "The folder containing CEL format files for chip data."
+            },
+            {
+                "name": "out_folder",
+                "type": "Folder path",
+                "description": "A unique run id and output folder name [a-zA-Z0-9_-]+"
+            },
+            {
+                "name": "gpl_name",
+                "type": "string",
+                "description": "Probe annotation corresponding to CEL file."
+            }
+        ],
+        "output": [
+            {
+                "name": "matrix_file",
+                "type": "file",
+                "description": "The expression profile file extracted from the CEL format file of chip data, in the form of gene, is listed as a sample."
+            }
+        ]
+    },
+    "cellranger_count": {
+        "tool_name": "cellranger_count",
+        "description": "cellranger count takes FASTQ files and performs alignment, filtering, barcode counting, and UMI counting. It uses the Chromium cellular barcodes to generate feature-barcode matrices, determine clusters, and perform gene expression analysis.",
+        "input": [
+            {
+                "name": "fastq_files",
+                "type": "file",
+                "description": "compressed file path to input FASTQ data(A sample contains I1:SRRXXX_S1_LOO1_I1_001.fastq.gz;R1:SRRXXX_S1_LOO1_R1_001.fastq.gz;R2:SRRXXX_S1_LOO1_R2_001.fastq.gz)"
+            },
+            {
+                "name": "sample_name",
+                "type": "string",
+                "description": "Prefix of the filenames of FASTQs to select"
+            }
+        ],
+        "output": [
+            {
+                "name": "filtered_feature_bc_matrix_file",
+                "type": "file",
+                "description": "Filtered Barcode Information HDF5 Format File."
+            },
+            {
+                "name": "raw_feature_bc_matrix_file",
+                "type": "file",
+                "description": "Raw Barcode Information HDF5 Format File."
+            }
+        ]
+    },
+    "decisiontree": {
+        "tool_name": "decisiontree",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set.\nThe algorithm used is Decision tree algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "deg": {
+        "tool_name": "deg",
+        "description": "For extracting differentially expressed genes from samples under two different experimental conditions.",
+        "input": [
+            {
+                "name": "exp_file",
+                "type": "file",
+                "description": "gene expression profile data file."
+            },
+            {
+                "name": "group_file",
+                "type": "file",
+                "description": "File Contains grouping information for samples."
+            }
+        ],
+        "output": [
+            {
+                "name": "deg_file",
+                "type": "file",
+                "description": "The set of genes significantly differentially expressed under the two experimental conditions."
+            }
+        ]
+    },
+    "enrichment2bubble": {
+        "tool_name": "enrichment2bubble",
+        "description": "enrichment2bubble is a tool to Display the results of pathway enrichment using a bubble chart.",
+        "input": [
+            {
+                "name": "enrichment_file",
+                "type": "file",
+                "description": "The enrichment text file. The following column names must be included: Term, Input_number, Enrich_ratio, P_Value"
+            },
+            {
+                "name": "p_value",
+                "type": "str",
+                "description": "The column name in enrichment file where the p-value is located."
+            },
+            {
+                "name": "term",
+                "type": "str",
+                "description": "The column name in enrichment file where the pathway is located."
+            },
+            {
+                "name": "input_number",
+                "type": "str",
+                "description": "The column name in enrichment file where the input number is located."
+            },
+            {
+                "name": "background_number",
+                "type": "str",
+                "description": "The column name in enrichment file where the background number is located."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_bubble_image",
+                "type": "file",
+                "description": "The bubble figure."
+            }
+        ]
+    },
+    "fastqc": {
+        "tool_name": "fastqc",
+        "description": "fastqc is a tool used for quality control of high throughput sequence data. It provides a simple way to perform quality checks on raw sequence data coming from high throughput sequencing pipelines.",
+        "input": [
+            {
+                "name": "fq1_data",
+                "type": "file",
+                "description": "The input file is a FASTQ file containing the forward reads from a paired-end sequencing run. This file contains raw sequencing reads."
+            },
+            {
+                "name": "fq2_data",
+                "type": "file",
+                "description": "The input file is a FASTQ file containing the reverse reads from a paired-end sequencing run. This file contains raw sequencing reads"
+            }
+        ],
+        "output": [
+            {
+                "name": "fq1_data_txt",
+                "type": "file",
+                "description": "The output file is a text file that contains detailed quality metrics for the forward reads from the input sequence data. It includes various statistics and data points to help assess the quality of the data."
+            },
+            {
+                "name": "fq2_data_txt",
+                "type": "file",
+                "description": "The output file is a text file that contains detailed quality metrics for the reverse reads from the input sequence data. It includes various statistics and data points to help assess the quality of the data."
+            },
+            {
+                "name": "fq1_summary_txt",
+                "type": "file",
+                "description": "The output file is a summary text file that provides a high-level overview of the quality metrics for the forward reads from the input sequence data. It includes key quality statistics and indicators."
+            },
+            {
+                "name": "fq2_summary_txt",
+                "type": "file",
+                "description": "The output file is a summary text file that provides a high-level overview of the quality metrics for the reverse reads from the input sequence data. It includes key quality statistics and indicators."
+            }
+        ]
+    },
+    "fastq_to_bam": {
+        "tool_name": "fastq_to_bam",
+        "description": "This tool is a pipeline that uses the following tools in sequence:1bwa_samtools_sambamba 2gatk_markduplicates 3gatk_bqsr, complete the conversion from fastq to bam file, gatk_markduplicates is used to identify and label duplicate reads generated during the PCR process to avoid bias in subsequent analysis. Finally, gatk_bqsr recalibrates the base mass fraction in the BAM file",
+        "input": [
+            {
+                "name": "fastq_file1",
+                "type": "file",
+                "description": "One of the paired sequencing, Genetic testing data files for patients with genetic diseases"
+            },
+            {
+                "name": "fastq_file2",
+                "type": "file",
+                "description": "One of the paired sequencing, Genetic testing data files for patients with genetic diseases"
+            },
+            {
+                "name": "file_type_flag",
+                "type": "string",
+                "description": "The type of fastq file (\"tumor\" or \"normal\")"
+            }
+        ],
+        "output": [
+            {
+                "name": "bam_file",
+                "type": "file",
+                "description": "BAM file that has had duplicates removed and Base Quality Score Recalibration (BQSR)"
+            }
+        ]
+    },
+    "featureselect": {
+        "tool_name": "featureselect",
+        "description": "Input two csv files with m columns, which are the training set and the test set. And input the column name of the label column, and the number of features to be selected, n, where n is less than m. Use this tool to perform feature selection on the training set. Then filter the feature columns of the test set according to the n feature columns selected from the training set. The output result files are two csv files, which are the training set and test set files after feature extraction. Each csv file contains filtered n feature columns and label columns.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of m columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of m columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            },
+            {
+                "name": "n",
+                "type": "int",
+                "description": "This is the number of feature columns that need to be filtered out. It is an integer type"
+            }
+        ],
+        "output": [
+            {
+                "name": "train_result_file",
+                "type": "file",
+                "description": "This is the result file of the feature extraction of the training set. It is a csv file with n+1 columns in total. It contains the extracted n highly correlated feature columns and a label column."
+            },
+            {
+                "name": "test_result_file",
+                "type": "file",
+                "description": "This is the result file of the feature extraction of the test set. It is a csv file with n+1 columns in total. It contains the extracted n highly correlated feature columns and a label column."
+            }
+        ]
+    },
+    "gatk_bqsr": {
+        "tool_name": "gatk_bqsr",
+        "description": "A tool in GATK for Base Quality Score Recalibration (BQSR)",
+        "input": [
+            {
+                "name": "bam_file1",
+                "type": "file",
+                "description": "BAM alignment files"
+            }
+        ],
+        "output": [
+            {
+                "name": "bam_file2",
+                "type": "file",
+                "description": "BAM alignment files"
+            }
+        ]
+    },
+    "gatk_markduplicates": {
+        "tool_name": "gatk_markduplicates",
+        "description": "A tool in GATK to identify and mark duplicate reads in alignment bam file.",
+        "input": [
+            {
+                "name": "bam_file1",
+                "type": "file",
+                "description": "BAM alignment files"
+            }
+        ],
+        "output": [
+            {
+                "name": "bam_file2",
+                "type": "file",
+                "description": "BAM alignment files"
+            }
+        ]
+    },
+    "gaussianNB": {
+        "tool_name": "gaussianNB",
+        "description": "Input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. The output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is GaussianNB algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\"."
+            }
+        ]
+    },
+    "gbdt": {
+        "tool_name": "gbdt",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set.\nThe algorithm used is GBDT algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "gene_to_diseases": {
+        "tool_name": "gene_to_diseases",
+        "description": "The tool utilizes pathgenic variant gene names to perform searches within the OMIM database",
+        "input": [
+            {
+                "name": "pathogenic_genes_file",
+                "type": "file",
+                "description": "maf file or json file include pathgenic variant gene name"
+            }
+        ],
+        "output": [
+            {
+                "name": "diseases_name",
+                "type": "string",
+                "description": "a list include names of diseases that may be caused by genetic mutations"
+            }
+        ]
+    },
+    "gffcompare": {
+        "tool_name": "gffcompare",
+        "description": "It is a tool for comparing and merging GTF/GFF format files.",
+        "input": [
+            {
+                "name": "gtf_file",
+                "type": "file",
+                "description": "This is StringTie's output file containing information about the assembled transcripts, usually generated by StringTie's merge operation."
+            }
+        ],
+        "output": [
+            {
+                "name": "merged_stats",
+                "type": "file",
+                "description": "Includes statistics on the number of transcripts matched, the number of new transcripts, the number of known transcripts, etc."
+            },
+            {
+                "name": "merged_loci",
+                "type": "file",
+                "description": "Each of these transcripts contains detailed information corresponding to a gene in the reference genome."
+            },
+            {
+                "name": "merged_tracking",
+                "type": "file",
+                "description": "Detailed information on the correspondence between the input transcripts and the genes in the reference genome."
+            }
+        ]
+    },
+    "GSEA": {
+        "tool_name": "GSEA",
+        "description": "Detect the expression changes of differentially expressed gene sets under specific conditions through predefined gene sets, thereby revealing the biological functions influenced by these differentially expressed genes.",
+        "input": [
+            {
+                "name": "DEG_file",
+                "type": "file",
+                "description": "Differentially expressed genes under specific conditions."
+            },
+            {
+                "name": "Predefined_gene_set_file",
+                "type": "file",
+                "description": "This file contains information on biological functions and corresponding gene sets, which can be defined by users themselves, such as KEGG pathway-gene and GO term-gene relationships."
+            }
+        ],
+        "output": [
+            {
+                "name": "GSEA_file",
+                "type": "file",
+                "description": "GSEA enrichment result file, including which biological functions were activated or inhibited by differentially expressed genes."
+            }
+        ]
+    },
+    "hierarchical": {
+        "tool_name": "hierarchical",
+        "description": "This is a clustering tool. Input a csv file and also enter the number of clusters. Use this tool to perform cluster analysis on csv files and output the clustering result file and a silhouette score value. Compared with the input csv file, the clustering result file adds the clustered category column \"Cluster\" column. The algorithm used is hierarchical clustering algorithm.",
+        "input": [
+            {
+                "name": "data_csv_file",
+                "type": "file",
+                "description": "This is the input original data set. It is a csv file with n columns."
+            },
+            {
+                "name": "n_clusters",
+                "type": "integer",
+                "description": "This is the number of clusters to be clustered. It is an integer."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "This is the result file of the clustering. It is a csv file with (n+1) columns. The column name of the new column is \"Cluster\""
+            },
+            {
+                "name": "silhouette",
+                "type": "float",
+                "description": "This is the average silhouette score of the output. It is a floating point number between -1 and 1 used to evaluate the quality of the clustering."
+            }
+        ]
+    },
+    "HISAT2": {
+        "tool_name": "HISAT2",
+        "description": "A tool for aligning RNA sequences to a reference genome.",
+        "input": [
+            {
+                "name": "FASTQ_file1",
+                "type": "file",
+                "description": "This is the forward read of the FASTQ file and contains the raw RNA sequence data from sequencing."
+            },
+            {
+                "name": "FASTQ_file2",
+                "type": "file",
+                "description": "This is the reverse read FASTQ file containing the reverse read sequence corresponding to the first file."
+            }
+        ],
+        "output": [
+            {
+                "name": "SAM_file",
+                "type": "file",
+                "description": "Results after alignment of FASTQ sequence data to the reference genome."
+            }
+        ]
+    },
+    "hovernet": {
+        "tool_name": "hovernet",
+        "description": "Construct a cell segmentation model with hovernet using the training dataset of pathological images.",
+        "input": [
+            {
+                "name": "training_dataset_path",
+                "type": "file",
+                "description": "training dataset path, Compressed file containing training data"
+            },
+            {
+                "name": "cell_type",
+                "type": "string",
+                "description": "The types of cells to be divided can be inflammatory, epithelial, spindle shaped, all, where inflammatory, epithelial and spindle shaped represent inflammatory cells respectively. epithelial cell, spindle shaped cell, and all stands for dividing all type of cells."
+            }
+        ],
+        "output": [
+            {
+                "name": "model_file_path",
+                "type": "file",
+                "description": "cell segmentation model file"
+            }
+        ]
+    },
+    "hovernet_predict": {
+        "tool_name": "hovernet_predict",
+        "description": "Using hovernet model to perform cell segmentation on testing dataset of pathological images.",
+        "input": [
+            {
+                "name": "testing_dataset_path",
+                "type": "file",
+                "description": "testing dataset path, Compressed file containing testing datami"
+            },
+            {
+                "name": "model_file_path",
+                "type": "file",
+                "description": "cell segmentation model file"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_file_path",
+                "type": "folder path",
+                "description": "cell segmentation result file path"
+            }
+        ]
+    },
+    "intervar_mutation_annotation": {
+        "tool_name": "intervar_mutation_annotation",
+        "description": "This tool analyzes genetic mutations in VCF files and automatically queries the InterVar database to determine whether these mutations are pathogenic.",
+        "input": [
+            {
+                "name": "vcf_file",
+                "type": "file",
+                "description": "Variant Call Format files"
+            }
+        ],
+        "output": [
+            {
+                "name": "annotated_file",
+                "type": "file",
+                "description": "The file is a JSON array containing information about genetic mutations, where \"Pathogenicity\" being \"Pathogenic\" indicates that the gene is a disease-causing gene."
+            }
+        ]
+    },
+    "kallisto": {
+        "tool_name": "kallisto",
+        "description": "kallisto is a tool used for quantifying transcript abundances from RNA-seq data.",
+        "input": [
+            {
+                "name": "fq1_data",
+                "type": "file",
+                "description": "The input file is a FASTQ file containing the forward reads from an RNA-seq experiment. This file contains raw sequencing reads."
+            },
+            {
+                "name": "fq2_data",
+                "type": "file",
+                "description": "The input file is a FASTQ file containing the reverse reads from an RNA-seq experiment. This file contains raw sequencing reads."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_file",
+                "type": "file",
+                "description": "The output file is a tab-delimited text file containing the quantification results. Each row represents a gene and its corresponding expression abundance value."
+            }
+        ]
+    },
+    "kmeans": {
+        "tool_name": "kmeans",
+        "description": "This is a clustering tool. Input a csv file and also enter the number of clusters. Use this tool to perform cluster analysis on csv files and output the clustering result file and a silhouette score value. Compared with the input csv file, the clustering result file adds the clustered category column \"Cluster\" column. The algorithm used is kmeans clustering algorithm.",
+        "input": [
+            {
+                "name": "data_csv_file",
+                "type": "file",
+                "description": "This is the input original data set. It is a csv file with n columns."
+            },
+            {
+                "name": "n_clusters",
+                "type": "integer",
+                "description": "This is the number of clusters to be clustered. It is an integer."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "This is the result file of the clustering. It is a csv file with (n+1) columns. The column name of the new column is \"Cluster\""
+            },
+            {
+                "name": "silhouette",
+                "type": "float",
+                "description": "This is the average silhouette score of the output. It is a floating point number between -1 and 1 used to evaluate the quality of the clustering."
+            }
+        ]
+    },
+    "KOBAS_enrichment": {
+        "tool_name": "KOBAS_enrichment",
+        "description": "Gene Set Enrichment (GSE) to resolve the enriched biological functions for a gene set.",
+        "input": [
+            {
+                "name": "gene_list_file",
+                "type": "file",
+                "description": "A gene set that will be used to perform functional enrichment analysis(No preprocessing required)."
+            }
+        ],
+        "output": [
+            {
+                "name": "GO_enrichment_result",
+                "type": "file",
+                "description": "GO term affected by the input gene set."
+            },
+            {
+                "name": "KEGG_enrichment_result",
+                "type": "file",
+                "description": "KEGG pathway affected by the input gene set."
+            }
+        ]
+    },
+    "lda": {
+        "tool_name": "lda",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is LDA algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "lefse": {
+        "tool_name": "lefse",
+        "description": "lefse is a tool used for the analysis of high-dimensional biomarker data. It is particularly useful in the field of microbiome research, where it can identify and interpret biomarkers such as taxonomic classifications that exhibit significant differences in abundance across various samples or conditions.",
+        "input": [
+            {
+                "name": "feature_file",
+                "type": "file",
+                "description": "A text file containing feature abundance. The file's row names are features and column names are samples.(Necessary)"
+            },
+            {
+                "name": "sample_file",
+                "type": "file",
+                "description": "The sample information text file. The file's row names are samples and column names are sample metadata such as grouping information.(Necessary)"
+            },
+            {
+                "name": "tax_file",
+                "type": "file",
+                "description": "A text file containing taxonomic information. The file's row names are features and column names are taxonomic classes.(Necessary)"
+            },
+            {
+                "name": "method",
+                "type": "str",
+                "description": "Statistical Analysis Methods.(\"lefse\", \"rf\", \"metastat\", \"metagenomeSeq\", \"KW\", \"KW_dunn\", \"wilcox\", \"t.test\", \"anova\", \"scheirerRayHare\", \"lm\", \"ancombc2\", \"ALDEx2_t\", \"ALDEx2_kw\", \"DESeq2\", \"linda\", \"maaslin2\", \"betareg\", \"lme\", \"glmm\", \"glmm_beta\"),default \"lefse\""
+            },
+            {
+                "name": "group",
+                "type": "str",
+                "description": "The column name where grouping information is located in sample_file.(Necessary)"
+            },
+            {
+                "name": "alpha",
+                "type": "number",
+                "description": "default 0.05;significance threshold to select taxa when method is \"lefse\" or \"rf\"; or used to generate significance letters when method is 'anova' or 'KW_dunn' like the alpha parameter in cal_diff of trans_alpha class."
+            },
+            {
+                "name": "taxa_level",
+                "type": "str",
+                "description": "default \"all\"; 'all' represents using abundance data at all taxonomic ranks; For testing at a specific rank, provide taxonomic rank name, such as \"Genus\". If the provided taxonomic name is neither 'all' nor a colname in tax_table of input dataset, the function will use the features in input microtable$otu_table automatically."
+            },
+            {
+                "name": "p_adjust_method",
+                "type": "str",
+                "description": "p.adjust method(\"holm\", \"hochberg\", \"hommel\", \"bonferroni\", \"BH\", \"BY\",\"fdr\", \"none\"),default \"fdr\". When p_adjust_method = \"none\"’, P.adj is same with P.unadj"
+            }
+        ],
+        "output": [
+            {
+                "name": "out_lefse_file",
+                "type": "file",
+                "description": "A text file including results of LEfSe."
+            }
+        ]
+    },
+    "logistic": {
+        "tool_name": "logistic",
+        "description": "input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is logistic algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The  column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "maf_filter": {
+        "tool_name": "maf_filter",
+        "description": "This tool can filter out pathogenic mutation genes from MAF files.",
+        "input": [
+            {
+                "name": "maf_file",
+                "type": "file",
+                "description": "Mutation annotation information (MAF) format file"
+            }
+        ],
+        "output": [
+            {
+                "name": "filtered_maf_file",
+                "type": "file",
+                "description": "Mutation annotation information (MAF) format file filtered by maf_filter tool"
+            }
+        ]
+    },
+    "maf_to_drug": {
+        "tool_name": "maf_to_drug",
+        "description": "A querying tool that returns a list of drugs related to a OncoKB query items. The tool accepts a maf file and returns a two-dimensional list, each element of subarray is a dictionary consisting of two key-value pairs: drug and level.",
+        "input": [
+            {
+                "name": "maf_file",
+                "type": "file",
+                "description": "maf file"
+            }
+        ],
+        "output": [
+            {
+                "name": "drugs",
+                "type": "list",
+                "description": "Two-dimensional list, each element of subarray is a dictionary consisting of two key-value pairs: drug and level."
+            }
+        ]
+    },
+    "mcpcounter": {
+        "tool_name": "mcpcounter",
+        "description": "quantification of the absolute abundance of immune cells from gene expression data",
+        "input": [
+            {
+                "name": "gene_expression",
+                "type": "file",
+                "description": "gene expression profile in tab-delimited text format."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_file",
+                "type": "file",
+                "description": "The output file is a tab-delimited text file. It includes different types of immune cells and absolute abundance."
+            }
+        ]
+    },
+    "metagenome_annotation": {
+        "tool_name": "metagenome_annotation",
+        "description": "metagenome_annotation is a tool to conduct taxonomic identification and quantitative analysis of metagenomic data by using Kraken2 and Bracken, which can obtain the file including count data at the species level for the sample, as well as the taxonomic file.",
+        "input": [
+            {
+                "name": "id",
+                "type": "str",
+                "description": "The sample name."
+            },
+            {
+                "name": "type",
+                "type": "str",
+                "description": "The type of input data files,\"paired\" for Paired-end sequencing and \"single\" for Single-end sequencing."
+            },
+            {
+                "name": "db",
+                "type": "str",
+                "description": "The database used for annotaion. kraken2_16S is used for the annotation of 16S sequencing data."
+            },
+            {
+                "name": "fq1",
+                "type": "file",
+                "description": "A fastq file."
+            },
+            {
+                "name": "fq2",
+                "type": "file",
+                "description": "A fastq file. If type=\"single\",fq2 is the default null value."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_taxon_file",
+                "type": "file",
+                "description": "A text file containing taxonomic results at seven hierarchical levels."
+            },
+            {
+                "name": "out_count_file",
+                "type": "file",
+                "description": "A text file including count data at the species level for the sample."
+            }
+        ]
+    },
+    "metagenome_get_taxon_file": {
+        "tool_name": "metagenome_get_taxon_file",
+        "description": "metagenome_get_taxon_file is a tool to merging multiple taxonomic files from metagenome_annotation into one file which can be used for LEfSe analysis. All the taxonomic files should be placed individually in a single directory.",
+        "input": [
+            {
+                "name": "work_dir",
+                "type": "str",
+                "description": "The absolute path where the input taxonomic files are located such as \"/workdir\"."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_merge_taxon_file",
+                "type": "file",
+                "description": "A text file containing taxonomic results at seven hierarchical levels in all the samples' taxonomic files."
+            }
+        ]
+    },
+    "metagenome_merge": {
+        "tool_name": "metagenome_merge",
+        "description": "metagenome_merge is a tool for merging multiple similar files which should be placed individually in a single directory , capable of combining multiple out_count_files obtained from metagenome_annotation into a single count matrix file.",
+        "input": [
+            {
+                "name": "path",
+                "type": "str",
+                "description": "The absolute path where the input taxonomic files are located, such as \"/workdir/\"."
+            },
+            {
+                "name": "item",
+                "type": "str",
+                "description": "Specifications of the columns used for merging."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_merge_count_file",
+                "type": "file",
+                "description": "A text file containing taxonomic results at seven hierarchical levels."
+            }
+        ]
+    },
+    "mihatp_hovernet": {
+        "tool_name": "mihatp_hovernet",
+        "description": "Construct a cell segmentation model with mihatp_hovernet using the training dataset of pathological images.",
+        "input": [
+            {
+                "name": "training_dataset_path",
+                "type": "file",
+                "description": "training dataset path, Compressed file containing training data"
+            },
+            {
+                "name": "cell_type",
+                "type": "string",
+                "description": "The types of cells to be divided can be inflammatory, epithelial, spindle shaped, all, where inflammatory, epithelial and spindle shaped represent inflammatory cells respectively. epithelial cell, spindle shaped cell, and all stands for dividing all type of cells."
+            }
+        ],
+        "output": [
+            {
+                "name": "model_file_path",
+                "type": "file",
+                "description": "cell segmentation model file"
+            }
+        ]
+    },
+    "mihatp_hovernet_predict": {
+        "tool_name": "mihatp_hovernet_predict",
+        "description": "Using mihatp_hovernet model to perform cell segmentation on testing dataset of pathological images.",
+        "input": [
+            {
+                "name": "testing_dataset_path",
+                "type": "file",
+                "description": "testing dataset path, Compressed file containing testing data"
+            },
+            {
+                "name": "model_file_path",
+                "type": "file",
+                "description": "cell segmentation model file"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_file_path",
+                "type": "folder path",
+                "description": "cell segmentation result file path"
+            }
+        ]
+    },
+    "mlp": {
+        "tool_name": "mlp",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set.\nThe algorithm used is MLP algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "mse_calculate_tool": {
+        "tool_name": "mse_calculate_tool",
+        "description": "For testing logistic regression tasks, mean square error should be used as much as possible for logistic regression tasks. Input a csv file. And input the column name of the label column and the column name of the predicted value column in the csv file. Then use this tool to calculate the MSE of the prediction and output a floating point number of MSE.",
+        "input": [
+            {
+                "name": "csv_file",
+                "type": "file",
+                "description": "This is the input csv file. It contains label columns and predicted value columns"
+            },
+            {
+                "name": "target_col",
+                "type": "string",
+                "description": "This is the column name of the label column in the input csv file. it is a string"
+            },
+            {
+                "name": "predicted_col",
+                "type": "string",
+                "description": "This is the column name of the predicted value column in the input csv file. it is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "accuracy",
+                "type": "float",
+                "description": "This is the output MSE value. It is a floating point number"
+            }
+        ]
+    },
+    "pseudotime": {
+        "tool_name": "pseudotime",
+        "description": "Pseudotime is a tool used to construct the trajectory of changes between cells to reshape the process of cell changes over time.",
+        "input": [
+            {
+                "name": "annotation_file",
+                "type": "file",
+                "description": "A preprocessed RDS file with cell clustering annotations."
+            }
+        ],
+        "output": [
+            {
+                "name": "cell_trajectory_image",
+                "type": "file",
+                "description": "The image file contains images colored with pseudotime values and colored with cell types."
+            }
+        ]
+    },
+    "qda": {
+        "tool_name": "qda",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is QDA algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string"
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "randomforest": {
+        "tool_name": "randomforest",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is randomforest algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "randomforest_regression": {
+        "tool_name": "randomforest_regression",
+        "description": "This is a tool for regression. Input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. The output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is randomforest algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "regression": {
+        "tool_name": "regression",
+        "description": "A linear regression model tool,This tool should be called directly without the need for an \"import\" statement. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set.\nThe algorithm used is linear regression algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\"."
+            }
+        ]
+    },
+    "ROC": {
+        "tool_name": "ROC",
+        "description": "ROC is a tool to plot receiver operating characteristic curve.",
+        "input": [
+            {
+                "name": "input_file",
+                "type": "file",
+                "description": "A text file. The first column is the classification label, and the other columns are different variables along with their corresponding observed values."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_ROC_file",
+                "type": "file",
+                "description": "The ROC curve figure."
+            }
+        ]
+    },
+    "Samtools": {
+        "tool_name": "Samtools",
+        "description": "It is a toolset for working with SAM and BAM files.",
+        "input": [
+            {
+                "name": "SAM_file",
+                "type": "file",
+                "description": "Contains sequence alignment results generated by HISAT2 or other alignment tools."
+            }
+        ],
+        "output": [
+            {
+                "name": "BAM_file",
+                "type": "file",
+                "description": "The BAM format is a binary version of the SAM file, which takes up less space and is faster to read and process."
+            }
+        ]
+    },
+    "seurat_clustering": {
+        "tool_name": "seurat_clustering",
+        "description": "Seurat_clustering is a tool for cell clustering of 10x single-cell transcriptome data generated by Cell Ranger.",
+        "input": [
+            {
+                "name": "filtered_file",
+                "type": "file",
+                "description": "Quality controlled and standardized seurat objects."
+            }
+        ],
+        "output": [
+            {
+                "name": "clusters_feature_image",
+                "type": "file",
+                "description": "The image contains the expression level of some markers in all cluster groups"
+            },
+            {
+                "name": "clusters_Marker_file",
+                "type": "file",
+                "description": "The csv file is the matrix composed of the top 10 differentially expressed genes in each cluster."
+            },
+            {
+                "name": "clusters_HeatMap_image",
+                "type": "file",
+                "description": "Heat map of the top 10 differentially expressed genes in each cluster."
+            },
+            {
+                "name": "clusters_umap_image",
+                "type": "file",
+                "description": "UMAP of cluster groups."
+            },
+            {
+                "name": "clusters_data_file",
+                "type": "file",
+                "description": "Seruat objects after clustering, including barcodes, genes, and expression."
+            }
+        ]
+    },
+    "seurat_preprocess": {
+        "tool_name": "seurat_preprocess",
+        "description": "seurat_preprocess is a single cell data preprocessing tool based on QC indicators for cell selection and filtering, data normalization and scaling, and detection of highly variable features.",
+        "input": [
+            {
+                "name": "genes_file",
+                "type": "file",
+                "description": "The genes information file contains gene name and gene ID."
+            },
+            {
+                "name": "matrix_file",
+                "type": "file",
+                "description": "The matrix file is an mtx file that stores matrix representation data in sparse matrix format."
+            },
+            {
+                "name": "barcodes_file",
+                "type": "file",
+                "description": "The barcodes information tsv file contains all cellular barcodes present for that sample. Barcodes are listed in the order of data presented in the matrix file (i.e. these are the column names)."
+            }
+        ],
+        "output": [
+            {
+                "name": "QC_metrics_image",
+                "type": "file",
+                "description": "QC indicators visualization.(\"nFeature_RNA\", \"nCount_RNA\", \"percent.mt\")"
+            },
+            {
+                "name": "variable_features_image",
+                "type": "file",
+                "description": "The figure of feature subsets with high intercellular variability."
+            },
+            {
+                "name": "filtered_file",
+                "type": "file",
+                "description": "Quality controlled and standardized seurat objects."
+            }
+        ]
+    },
+    "seurat_preprocess_rds": {
+        "tool_name": "seurat_preprocess_rds",
+        "description": "seurat_preprocess is a single cell data preprocessing tool based on QC indicators for cell selection and filtering, data normalization and scaling, and detection of highly variable features.",
+        "input": [
+            {
+                "name": "rds_file",
+                "type": "file",
+                "description": "10x single-cell transcriptome data created using seruat"
+            }
+        ],
+        "output": [
+            {
+                "name": "QC_metrics_image",
+                "type": "file",
+                "description": "QC indicators visualization.(\"nFeature_RNA\", \"nCount_RNA\", \"percent.mt\")"
+            },
+            {
+                "name": "variable_features_image",
+                "type": "file",
+                "description": "The figure of feature subsets with high intercellular variability."
+            },
+            {
+                "name": "filtered_file",
+                "type": "file",
+                "description": "Quality controlled and standardized seurat objects."
+            }
+        ]
+    },
+    "signature": {
+        "tool_name": "signature",
+        "description": "signature is a tool used for analyzing somatic variants in samples and determining the abundance of mutational signatures.",
+        "input": [
+            {
+                "name": "sig_input",
+                "type": "file",
+                "description": "The input file is a tab-delimited text file containing genetic variant information for samples. It includes columns for sample ID, chromosome, position, reference allele, and alternate allele."
+            },
+            {
+                "name": "bsg_type",
+                "type": "string",
+                "description": "This parameter specifies the reference genome to be used for variant annotation. It can be either \"BSgenome.Hsapiens.UCSC.hg19\" or \"BSgenome.Hsapiens.UCSC.hg38\"."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_file",
+                "type": "file",
+                "description": "The output file is a tab-delimited text file containing the results of the mutational signature analysis. It includes the sample ID and the abundance of mutational signatures observed in the samples."
+            }
+        ]
+    },
+    "singleR_annotation": {
+        "tool_name": "singleR_annotation",
+        "description": "singleR_annotation is a tool for cell type recognition from single-cell RNA sequencing data using a reference transcriptome dataset.",
+        "input": [
+            {
+                "name": "clusters_file",
+                "type": "file",
+                "description": "Seurat objects after preprocessing, dimensionality reduction, and clustering."
+            }
+        ],
+        "output": [
+            {
+                "name": "annotion_umap_image",
+                "type": "file",
+                "description": "UMAP diagram automatically annotated by SingleR."
+            },
+            {
+                "name": "scores_within_cells_image",
+                "type": "file",
+                "description": "Heat map of cell scores in an annotated label."
+            },
+            {
+                "name": "annotation_file",
+                "type": "file",
+                "description": "Annotated single-cell data, including annotated labels, scores, and other data."
+            }
+        ]
+    },
+    "split_data_tool": {
+        "tool_name": "split_data_tool",
+        "description": "Input a csv file, which is the original data set. The column name of the label column is \"Target\". Use this tool to divide this csv file into a training set and a test set, and then output the result files of the training set and test set.\nThe default split ratio for the tool is 0.8-0.2.File loading has been implemented internally within the tool, and no additional file loading is required before the tool.",
+        "input": [
+            {
+                "name": "dataset_csv_file",
+                "type": "file",
+                "description": "This is the input original data set. It is a csv file with a total of n columns. The column name of the label column is \"Target\""
+            }
+        ],
+        "output": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the result file of the output training set. It is a csv file with a total of n columns. The column name of the label column is \"Target\""
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the result file of the output test set. It is a csv file with a total of n columns. The column name of the label column is \"Target\""
+            }
+        ]
+    },
+    "ssGSEA": {
+        "tool_name": "ssGSEA",
+        "description": "ssGSEA (single-sample gene set enrichment analysis) is a method for gene set enrichment analysis, used to analyze the enrichment level of biological processes or pathways in gene expression data.",
+        "input": [
+            {
+                "name": "inf_set",
+                "type": "file",
+                "description": "The file format is a text file, with tab (\\t) used as the delimiter between fields. It contains two columns, each representing a biological pathway (TGF_pathway and BMP_pathway). Each row lists the genes belonging to the respective pathway."
+            },
+            {
+                "name": "inf_exp",
+                "type": "file",
+                "description": "The file is an expression file delimited by tabs (\\t), with rows representing genes and columns representing samples."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_file",
+                "type": "file",
+                "description": "A text file including results of ssGSEA"
+            }
+        ]
+    },
+    "stringtie": {
+        "tool_name": "stringtie",
+        "description": "This is a tool for assembling and quantifying RNA-Seq data.",
+        "input": [
+            {
+                "name": "bam_file",
+                "type": "file",
+                "description": "The BAM format is a binary version of the SAM file, which takes up less space and is faster to read and process."
+            }
+        ],
+        "output": [
+            {
+                "name": "gtf_file",
+                "type": "file",
+                "description": "Contains information on assembled transcripts."
+            }
+        ]
+    },
+    "stringtie_merge": {
+        "tool_name": "stringtie_merge",
+        "description": "stringtie_merge is a subfunction of stringtie, used to integrate transcript assembly results from multiple RNA-Seq samples.",
+        "input": [
+            {
+                "name": "gtf_file",
+                "type": "file",
+                "description": "Contains information on assembled transcripts."
+            }
+        ],
+        "output": [
+            {
+                "name": "gtf_file",
+                "type": "file",
+                "description": "Merged transcript file"
+            }
+        ]
+    },
+    "survival_curve": {
+        "tool_name": "survival_curve",
+        "description": "survival_curve is a tool to plot the survival curve using survival time, event status, and variables that may affect survival.",
+        "input": [
+            {
+                "name": "survival_file",
+                "type": "file",
+                "description": "The survival-related text file. # The following information must be included:Survival Time,Event Status,Covariates"
+            },
+            {
+                "name": "time",
+                "type": "str",
+                "description": "The column name in survival_file where the survival time is located."
+            },
+            {
+                "name": "event",
+                "type": "str",
+                "description": "The column name in survival_file where the event status is located."
+            },
+            {
+                "name": "variable",
+                "type": "str",
+                "description": "The column name in survival_file where variables that may affect survival is located."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_survival_curve_image",
+                "type": "file",
+                "description": "The survival curve figure."
+            }
+        ]
+    },
+    "svm": {
+        "tool_name": "svm",
+        "description": "This is a tool for classification. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set. The algorithm used is SVM algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "svm_regression": {
+        "tool_name": "svm_regression",
+        "description": "This is a tool for regression. input two csv files, namely the training set and the test set. Also input a column name for the label column. Use this tool to train on the training set, then predict on the test set, and output the prediction result file on the test set. the output result file adds a predicted value column \"Predicted\" compared to the input test set.\nThe algorithm used is SVM algorithm.",
+        "input": [
+            {
+                "name": "train_csv_file",
+                "type": "file",
+                "description": "This is the input training set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "test_csv_file",
+                "type": "file",
+                "description": "This is the input test set. It is a csv file with a total of n columns."
+            },
+            {
+                "name": "target",
+                "type": "string",
+                "description": "This is the column name of the input label column. It is a string."
+            }
+        ],
+        "output": [
+            {
+                "name": "result_csv_file",
+                "type": "file",
+                "description": "The output is the result file of the test set. It is a csv file with a total of (n+1) columns. The column name of the predicted value column is \"Predicted\""
+            }
+        ]
+    },
+    "vcf_to_maf": {
+        "tool_name": "vcf_to_maf",
+        "description": "A tool used to convert a VCF file into a MAF file",
+        "input": [
+            {
+                "name": "vcf_file",
+                "type": "file",
+                "description": "Variant Call Format files"
+            }
+        ],
+        "output": [
+            {
+                "name": "maf_file",
+                "type": "file",
+                "description": "Mutation annotation information (MAF) format file, The naming convention for output files is to replace \".vcf\" in the input file name with \".maf\". e.g:Input:\"tumor.recal.vcf\" Output: \"tumor.recal.maf\", Input:\"tumor_paired.vcf\" Output: \"tumor_paired.maf\""
+            }
+        ]
+    },
+    "venn": {
+        "tool_name": "venn",
+        "description": "venn is a tool to plot the venn diagram.",
+        "input": [
+            {
+                "name": "dataset_file",
+                "type": "file",
+                "description": "The text file containing datasets from various groups. Each column is a dataset for a group, with the column name being the name of the group."
+            }
+        ],
+        "output": [
+            {
+                "name": "out_venn_image",
+                "type": "file",
+                "description": "The venn diagram."
+            }
+        ]
+    },
+    "wgcna": {
+        "tool_name": "wgcna",
+        "description": "The wgcna algorithm is used to mine gene modules with strong correlation between gene expression profiles and group information.",
+        "input": [
+            {
+                "name": "exp_file",
+                "type": "file",
+                "description": "The expression profile csv file(No preprocessing required)."
+            },
+            {
+                "name": "group_file",
+                "type": "file",
+                "description": "The group information csv file(No preprocessing required)."
+            }
+        ],
+        "output": [
+            {
+                "name": "genes_modules_image",
+                "type": "file",
+                "description": "Gene module clustering diagram, used to display how many gene modules are divided."
+            },
+            {
+                "name": "module_relationships_trait_image",
+                "type": "file",
+                "description": "Used to show the correlation between gene modules and group information."
+            },
+            {
+                "name": "top_hub_gene_file",
+                "type": "file",
+                "description": "The gene module with the strongest correlation with group information."
+            }
+        ]
+    }
+}

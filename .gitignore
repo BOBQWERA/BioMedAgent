@@ -1,0 +1,10 @@
+log/
+result/
+task/
+tools/
+data/
+output.json
+total.json
+__pycache__/
+*.pyc
+*.zip
