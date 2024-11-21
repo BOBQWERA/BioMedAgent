@@ -3,7 +3,7 @@ import json
 
 from server.base import BaseServer
 from config import Config
-from component import ToolManager
+from scripts.component import ToolManager
 
 from utils import rprint,gprint
 

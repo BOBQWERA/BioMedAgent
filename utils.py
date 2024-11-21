@@ -29,7 +29,7 @@ def get_action_code(programmer_code, tester_code):
     return total_code
 
 
-def knowledge_base(item_key:str, query_key:str, query_value:str, question_id:str, task_id:str|None = None):
+def knowledge_base(item_key:str, query_key:str, query_value:str, question_id:str, task_id = None):
 
     r = Config().get_redis_connect()
     memory_id = generate_task_id()

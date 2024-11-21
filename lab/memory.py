@@ -1,12 +1,12 @@
 import json
 import asyncio
 
-from component import Task
+from scripts.component import Task
 from agent import BaseAgent, ResponseHandler, ResponseChecker
 
 from config import Config
 
-from prompt import *
+from scripts.prompt import *
 
 from utils import knowledge_base, generate_task_id, extract_function
 

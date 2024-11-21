@@ -13,18 +13,18 @@ class Config:
     LLM_CALL_WAITING_TIME = 1
     LLM_SERVER_IP = ""
 
-    BASE_DIR = "BioMedAgent/"
+    BASE_DIR = "./"
     LOG_DIR = os.path.join(BASE_DIR,"log")
-    TASK_DIR = "biomedagent/info/task"
-    TOOL_DOC_DIR = "biomedagent/tools/doc"
-    TOOL_CODE_DIR = "biomedagent/tools/code"
+    TASK_DIR = "task"
+    TOOL_DOC_DIR = "tool/doc"
+    TOOL_CODE_DIR = "tool/code"
 
-    ZIP_DIR = "biomedagent/info/zip"
+    ZIP_DIR = "zip"
 
     SAVE_LOG = True
     ECHO_INFO = True
 
-    SAVE_MEMORY = False # 是否记忆
+    SAVE_MEMORY = False
     MEMORY_PREFIX = "v1.0.0"
 
     USE_MEMORY = False

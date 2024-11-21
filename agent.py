@@ -2,11 +2,11 @@ import asyncio
 import json
 import re
 
-from chat import ChatSession
-from component import Task
+from scripts.chat import ChatSession
+from scripts.component import Task
 from config import Config
-from executor import push_code, get_code_output
-from prompt import *
+from scripts.executor import push_code, get_code_output
+from scripts.prompt import *
 from utils import rprint, gprint, get_action_code
 
 from lab.memory_retriever import TestMemoryRetriever
@@ -879,7 +879,7 @@ class Programmer(BaseAgent):
         ResponseChecker.xml_tag_checker("OUTPUT"),
         ResponseChecker.xml_tag_checker("TYPE")
     ))
-    def resource_analyse(self, data, session:ChatSession|None=None):
+    def resource_analyse(self, data, session=None):
         if session is None:
             session = self.create_chatsession("You are a tester")
         prompt = self.format_template(action="description",data={

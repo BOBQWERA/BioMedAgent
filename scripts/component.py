@@ -2,6 +2,7 @@ import os
 import json
 import time
 import redis
+import shutil
 from typing import Any
 
 
@@ -131,7 +132,8 @@ class Task:
             print(file['path'])
             if not os.path.exists(file['path']):
                 raise FileNotFoundError(f"no file:{file['path']=}")
-            os.system(f"cp {file['path']} {task_path}")
+            # os.system(f"cp {file['path']} {task_path}")
+            shutil.copy(file['path'], task_path)
         #?###########################
         self.status.tools = {}
         tools = os.listdir(self.config.TOOL_DOC_DIR)

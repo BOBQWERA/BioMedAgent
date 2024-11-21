@@ -1,0 +1,45 @@
+import os
+import docker
+
+def vcf_to_maf(vcf_file):                   
+    if not vcf_file.endswith(".vcf"):     
+        raise ValueError("Invalid file name")
+    
+    current_path = os.getcwd()
+    output_header = vcf_file.replace(".vcf", "")     
+    client = docker.from_env()
+
+    container_config = {                    
+    'image': 'bc_vcf2maf',           
+    'command': '/bin/bash',                 
+    'tty': True,                            
+    'stdin_open': True,                     
+    'volumes': {                         
+        current_path: {                  
+            'bind': '/io_data',  
+            'mode': 'rw'
+        },
+        '/mnt/data/fastq2vcf': {  
+            'bind': '/data', 
+            'mode': 'rw'
+        }
+    },
+    'detach': True
+    }
+    container = client.containers.run(**container_config)
+    
+    
+    command = f"perl /opt/mskcc-vcf2maf/vcf2maf.pl --input-vcf /io_data/{vcf_file} --output-maf /io_data/{output_header}.maf --tumor-id tumor --normal-id normal --ref-fasta /data/reference/hg19/ucsc.hg19.nochr.fasta --ncbi-build GRCh37 --species homo_sapiens --vep-data /data/reference/vep --vep-path /opt/vep/src/ensembl-vep/ --cache-version 97"
+
+
+    output = container.exec_run(command)     
+    container.stop()
+    container.remove()
+    if "Error" in output or "error" in output:
+        raise Exception(output)
+
+    output_file = output_header + ".maf"   
+    for f in [output_file]:
+        if not os.path.exists(f):                           
+            raise FileNotFoundError(f"{f} is not found")
+    return output_file
