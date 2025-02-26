@@ -51,7 +51,7 @@ python demo.py --task statistics
 
 ## Enrich your tools
 You are free to extend the collection of tools to enhance the boundary capabilities of BioMedAgent.
-Refer to the `vcf_to_maf` tool information in the `tool` folder, you can configure your local environment to add any tools you want.
+Refer to the `cel2matrix` tool information in the `tool` folder, you can configure your local environment to add any tools you want.
 Simply complete the documentation as well as the code, and BioMedAgent will automatically perceive the new tool and use it appropriately in new question.
 For the BioMedAgent configuration in our paper, its full tool information can be seen in `tool_info.json`.
 
