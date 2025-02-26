@@ -40,25 +40,20 @@ python -m pip install -r requirements.txt
 ```
 export OPENAI_API_KEY="your_openai_api_key"
 ```
-### 5. Modify your question
-Edit `demo.py` and adjust the content of `question_info`
+
+### 5. Run `demo.py`
+You can specify the task type via the task parameter. Demo supports four different task instances of `['omics', 'machine_learning', 'statistics', 'visualization']`, which can be called via `python demo.py --task task_type`
 ```
-question_info = {
-    "question":"For the vcf file {demo.vcf}, perform mutation annotation to generate the maf file",
-    "files":[
-        {
-            "name":"demo.vcf",
-            "path":"data/demo.vcf"
-        }
-    ]
-}
+python demo.py --task statistics
 ```
-### 6. Run `demo.py`
-```
-python demo.py
-```
+> For `omics`, you need to deploy the supporting tool `cel2matrix` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `biogpt_r` can be downloaded through <a href="https://pan.baidu.com/s/1IebT7S-LwXiIAE1qVJ7vhw?pwd=dcex">Baidu Drive</a>
+
+
 ## Enrich your tools
 You are free to extend the collection of tools to enhance the boundary capabilities of BioMedAgent.
 Refer to the `vcf_to_maf` tool information in the `tool` folder, you can configure your local environment to add any tools you want.
 Simply complete the documentation as well as the code, and BioMedAgent will automatically perceive the new tool and use it appropriately in new question.
 For the BioMedAgent configuration in our paper, its full tool information can be seen in `tool_info.json`.
+
+## Updates
+- 2025-02-27: Add the demo of machine learning, statistics, visualization and omics.

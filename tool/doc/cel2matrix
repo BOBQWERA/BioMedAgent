@@ -1,0 +1,35 @@
+# tool_name
+
+cel2matrix
+
+# description
+
+Cel2matrix is a tool for extracting expression profile data from CEL files and annotating probes.
+
+# input
+CEL_file:
+    Type: Folder path
+    Description: The folder containing CEL format files for chip data.
+
+out_folder:
+    Type: Folder path 
+    Description:  A unique run id and output folder name [a-zA-Z0-9_-]+
+
+gpl_name:
+    Type: string 
+    Description: Probe annotation corresponding to CEL file.
+
+# output
+
+matrix_file
+    Type: file
+    Description: The expression profile file extracted from the CEL format file of chip data, in the form of gene, is listed as a sample.
+
+# example
+```python
+matrix_file = cel2matrix("GSM424314.CEL.gz", "output_dir", "GPL571")
+"""
+matrix_file : "output_dir/matrix.txt" ( matrix_file file path )
+
+"""
+```

@@ -1,0 +1,56 @@
+import os
+import docker
+
+def cel2matrix(input_file, out_folder, gpl_name):
+
+    client = docker.from_env()
+
+    current_path = os.getcwd()
+
+    container_config = {
+        'image': 'biogpt_r',
+        'volumes': {
+            current_path: {
+                'bind': '/io_data', 
+                'mode': 'rw'
+            },
+            "/mnt/leishuangshuang":{
+                'bind': '/home', 
+                'mode': 'rw'
+            }
+        },
+        'command': "/bin/bash",
+        'detach': True,
+        'tty': True,  
+        'stdin_open': True       
+    }
+    """
+
+    """
+
+    container = client.containers.run(**container_config)
+
+    command =f"Rscript /home/cel2matrix/cel2matrix.R /io_data/{input_file} /io_data/{out_folder} {gpl_name}"
+
+    result = container.exec_run(command)
+    # 停止并删除容器
+    container.stop()
+    container.remove()
+    
+    # 输出的解码，以获取字符串结果
+    output = result.output.decode('utf-8').strip() # 对于常规数据类型捕获解析
+
+    if result.exit_code != 0:
+        raise Exception(output)
+
+    # 后处理：文件存在检查
+    
+    matrix_file = f"{out_folder}/matrix.txt"
+    for f in [matrix_file]:
+        if not os.path.exists(f):
+            raise FileNotFoundError(f"{f} is not found")
+
+    return matrix_file
+
+if __name__ == "__main__":
+    matrix_file = cel2matrix("GSM424314.CEL.gz", "output_dir", "GPL570")
