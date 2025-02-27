@@ -1,0 +1,56 @@
+import os
+import docker
+
+
+def survival_curve(survival_file,time,event,variable):
+    client = docker.from_env()
+
+    current_path = os.getcwd()
+
+    container_config = {  # 将类似于【docker run -it -v /mnt/:/mnt bio_r /bin/bash】的命令转为config
+        'image': 'bio_r',
+        'volumes': {
+            current_path: {
+                'bind': '/workdir/',  # ! 工作目录（输入文件存放目录） # /home/BIOGPT/task1
+                'mode': 'rw'
+            },
+            "/mnt": {
+                'bind': '/mnt/',  # ! 工作目录（输入文件存放目录） # /home/BIOGPT/task1
+                'mode': 'rw'
+            },
+        },
+        'command': "/bin/bash",
+        'detach': True,
+        'tty': True,
+        'stdin_open': True
+    }
+    """
+    ./GSE140797_clinical.csv --> /workdir/GSE140797_clinical.csv
+    """
+
+    container = client.containers.run(**container_config)
+
+    command = f"Rscript /mnt/zhangshan/clinical_tools/survival_curve/survival_curve.R /workdir/{survival_file} \"{time}\" \"{event}\" \"{variable}\" /workdir/out_survival.pdf"
+
+    result = container.exec_run(command)
+    print(result)
+    # 停止并删除容器
+    container.stop()
+    container.remove()
+
+    # 输出的解码，以获取字符串结果
+    output = result.output.decode('utf-8').strip()  # 对于常规数据类型捕获解析
+
+    if "Error" in output or "error" in output:
+        raise Exception(output)
+
+    # 后处理：文件存在检查
+
+    out_survival_curve_image = "out_survival.pdf"
+
+    for f in [out_survival_curve_image]:
+        if not os.path.exists(f):
+            raise FileNotFoundError(f"{f} is not found")
+
+    return out_survival_curve_image
+

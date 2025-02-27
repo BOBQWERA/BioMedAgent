@@ -24,8 +24,8 @@ from utils import generate_task_id
 config = Config(generate_task_id())
 
 parser = argparse.ArgumentParser(description='Demo for BioMedAgent')
-parser.add_argument('--task', type=str, choices=['omics', 'machine_learning', 'statistics', 'visualization'],
-                    default='omics', help='task type')
+parser.add_argument('--task', type=str, choices=['machine_learning', 'statistics_t_test', 'statistics_qq_plot', 'visualization_survival_plot', 'visualization_violin_plot', 'omics'],
+                    default='machine_learning', help='task type')
 args = parser.parse_args()
 
 def generate_question_info(task_type):
@@ -37,14 +37,34 @@ def generate_question_info(task_type):
                 "path": "data/heart_disease.csv"
             }]
         },
-        "statistics": {
+        "statistics_t_test": {
+            "question": "There are two existing data tables, {data1.tsv} is a biomarker data table, with sample names as column names and biomarker names as row names, {group1.tsv} is a data table containing sample grouping information, where the two groups are 1 and 2, with the column name ID as sample names and the column name group as grouping information. Please use the tool t_test to perform an independent sample t-test based on this information.",
+            "files": [
+                {
+                    "name": "data1.tsv", 
+                    "path": "data/data1.tsv"
+                },
+                {
+                    "name": "group1.tsv", 
+                    "path": "data/group1.tsv"
+                }
+            ]
+        },
+        "statistics_qq_plot": {
             "question": "There is a dataset {boxplot.tsv}, Group2 column is the grouping information, which contains treat1 and treat2, please analyze whether the data in Value column of the two groupings of treat1 and treat2 have similar distribution characteristics, and plot QQ plot.",
             "files": [{
                 "name": "boxplot.tsv", 
                 "path": "data/boxplot.tsv"
             }]
         },
-        "visualization": {
+        "visualization_survival_plot": {
+            "question": "There is a data table {TCGA_LIHC_survival.txt} that contains information related to patient survival. The column named OS.time represents the survival time of the patients, the column named OS indicates the survival event status of the patients, and the column named gender is a variable that affects survival. Please use the tool survival_curve to plot the survival curve based on this information.",
+            "files": [{
+                "name": "TCGA_LIHC_survival.txt",
+                "path": "data/TCGA_LIHC_survival.txt"
+            }]
+        },
+        "visualization_violin_plot": {
             "question": "There is a data file {plot.tsv}, the Sex column is the gender of the sample, Age_Group is the different age grouping corresponding to each gender, please use the violin plot to show the distribution of WBC for each age grouping of different genders.",
             "files": [{
                 "name": "plot.tsv",

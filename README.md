@@ -42,18 +42,21 @@ export OPENAI_API_KEY="your_openai_api_key"
 ```
 
 ### 5. Run `demo.py`
-You can specify the task type via the task parameter. Demo supports four different task instances of `['omics', 'machine_learning', 'statistics', 'visualization']`, which can be called via `python demo.py --task task_type`
+You can specify the task type via the task parameter. Demo supports four different task instances of `['machine_learning', 'statistics_t_test', 'statistics_qq_plot', 'visualization_survival_plot', 'visualization_violin_plot', 'omics']`, which can be called via `python demo.py --task task_type`
 ```
 python demo.py --task statistics
 ```
 > For `omics`, you need to deploy the supporting tool `cel2matrix` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `biogpt_r` can be downloaded through <a href="https://pan.baidu.com/s/1IebT7S-LwXiIAE1qVJ7vhw?pwd=dcex">Baidu Drive</a>
+> For `visualization_survival_plot`, you need to deploy the supporting tool `survival_curve` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `bio_r` can be downloaded through <a href="https://pan.baidu.com/s/1CzAPNhLp4bJTnEbwABYwCQ?pwd=vwqk">Baidu Drive</a>
+> For `statistics_t_test` and `statistics_t_test`, you need to deploy the supporting tool `survival_curve` and `t_test` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `bio_r` can be downloaded through <a href="https://pan.baidu.com/s/1CzAPNhLp4bJTnEbwABYwCQ?pwd=vwqk">Baidu Drive</a>
 
 
 ## Enrich your tools
 You are free to extend the collection of tools to enhance the boundary capabilities of BioMedAgent.
-Refer to the `cel2matrix` tool information in the `tool` folder, you can configure your local environment to add any tools you want.
+Refer to the `cel2matrix`, `survival_curve` and `t_test` tool information in the `tool` folder, you can configure your local environment to add any tools you want.
 Simply complete the documentation as well as the code, and BioMedAgent will automatically perceive the new tool and use it appropriately in new question.
 For the BioMedAgent configuration in our paper, its full tool information can be seen in `tool_info.json`.
 
 ## Updates
 - 2025-02-27: Add the demo of machine learning, statistics, visualization and omics.
+- 2025-02-27: Add the demo of survival plot and t-test.

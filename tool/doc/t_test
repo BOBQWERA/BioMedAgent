@@ -1,0 +1,47 @@
+# tool_name
+
+t_test
+
+# description
+
+t_test is a tool to conduct independent samples t-Test analysis. It's a statistical hypothesis test that determines whether there is a significant difference between the means of two independent groups or samples.
+
+# input
+
+data_file
+    Type: file
+    Description: A data text file containing variables and samples. The file's column names are sample names, row names are variable names.
+
+group_file
+    Type: file
+    Description: A text file containing group information. # The following information must be included:Sample name,group information
+
+groupA_name
+    Type:str
+    Description: The name of group A.
+
+groupB_name
+    Type:str
+    Description: The name of group B.
+
+id
+    Type:str
+    Description: The column names for samples corresponding to grouping information.
+
+group
+    Type:str
+    Description: The column name where grouping information is located.
+
+# output
+
+out_tTest_file
+    Type: file
+    Description: A text file including results of independent samples t-Test
+
+# example
+```python
+out_tTest_file = t_test("exp.tsv","phe.tsv","High","Low","ID","group")
+"""
+out_tTest_file : "out_t_test.tsv" (out_tTest_file file path )
+"""
+```

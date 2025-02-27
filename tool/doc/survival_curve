@@ -1,0 +1,39 @@
+# tool_name
+
+survival_curve
+
+# description
+
+survival_curve is a tool to plot the survival curve using survival time, event status, and variables that may affect survival.
+
+# input
+
+survival_file
+    Type: file
+    Description: The survival-related text file. # The following information must be included:Survival Time,Event Status,Covariates
+
+time
+    Type:str
+    Description: The column name in survival_file where the survival time is located.
+
+event
+    Type:str
+    Description: The column name in survival_file where the event status is located.
+
+variable
+    Type:str
+    Description: The column name in survival_file where variables that may affect survival is located.
+
+# output
+
+out_survival_curve_image
+    Type: file
+    Description: The survival curve figure.
+
+# example
+```python
+out_survival_curve_image = survival_curve("surv_input.txt","OS.time","OS","class")
+"""
+out_survival_curve_image : "out_survival.pdf" ( out_survival_curve_image file path )
+"""
+```
