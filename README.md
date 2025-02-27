@@ -47,7 +47,8 @@ You can specify the task type via the task parameter. Demo supports four differe
 python demo.py --task statistics
 ```
 > For `omics`, you need to deploy the supporting tool `cel2matrix` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `biogpt_r` can be downloaded through <a href="https://pan.baidu.com/s/1IebT7S-LwXiIAE1qVJ7vhw?pwd=dcex">Baidu Drive</a>
-> For `visualization_survival_plot`, you need to deploy the supporting tool `survival_curve` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `bio_r` can be downloaded through <a href="https://pan.baidu.com/s/1CzAPNhLp4bJTnEbwABYwCQ?pwd=vwqk">Baidu Drive</a>
+
+
 > For `statistics_t_test` and `statistics_t_test`, you need to deploy the supporting tool `survival_curve` and `t_test` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `bio_r` can be downloaded through <a href="https://pan.baidu.com/s/1CzAPNhLp4bJTnEbwABYwCQ?pwd=vwqk">Baidu Drive</a>
 
 
