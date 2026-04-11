@@ -1,5 +1,8 @@
 # BioMedAgent：Autonomous Biomedical data Analysis by LLM-powered multi-agents with self-evolving capabilities
 
+## News
+- 2026: Our BioMedAgent paper has been published in *Nature Biomedical Engineering*.
+
 ## Background
 The biomedical field is experiencing a significant expansion in data growth as novel technologies develop, propelled by the vast amounts of medical texts, images, and omics data being collected. Analyzing this data requires complex computational methods that integrates skills from bioinformatics, artificial intelligence, software programming, statistics and mathematics. Various tools and platforms, such as Galaxy and Seven Bridges, provide interfaces for workflow creation and execution, but they face challenges, including reliance on predefined workflows, insufficient support for natural language instructions and lack of summarized readable reports, which restricts intuitive user engagement. Large Language Models (LLMs) have show great advantage in natural language comprehension and demonstrated potential in biomedical data analyses, yet they encounter significant challenges with complex problem planning and low success rate of execution.
 
@@ -46,10 +49,10 @@ You can specify the task type via the task parameter. Demo supports four differe
 ```
 python demo.py --task statistics
 ```
-> For `omics`, you need to deploy the supporting tool `cel2matrix` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `biogpt_r` can be downloaded through <a href="https://pan.baidu.com/s/1IebT7S-LwXiIAE1qVJ7vhw?pwd=dcex">Baidu Drive</a>
+> For `omics`, you need to deploy the supporting tool `cel2matrix` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `biogpt_r` can be downloaded through <a href="https://pan.baidu.com/s/1c0w2NETQJR6Yj1_L1sErbg?pwd=7n5h">Baidu Drive</a>
 
 
-> For `statistics_t_test` and `statistics_t_test`, you need to deploy the supporting tool `survival_curve` and `t_test` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `bio_r` can be downloaded through <a href="https://pan.baidu.com/s/1CzAPNhLp4bJTnEbwABYwCQ?pwd=vwqk">Baidu Drive</a>
+> For `statistics_t_test` and `statistics_t_test`, you need to deploy the supporting tool `survival_curve` and `t_test` environment for BioMedAgent call, the tool code and documentation information are provided in the `tool` folder, the code mentioned docker image `bio_r` can be downloaded through <a href="https://pan.baidu.com/s/13tMIARczfpoRKVijNYcnrg?pwd=m45v">Baidu Drive</a>
 
 
 ## Enrich your tools
@@ -59,5 +62,20 @@ Simply complete the documentation as well as the code, and BioMedAgent will auto
 For the BioMedAgent configuration in our paper, its full tool information can be seen in `tool_info.json`.
 
 ## Updates
+- 2026: Our BioMedAgent paper has been published in *Nature Biomedical Engineering*.
 - 2025-02-27: Add the demo of machine learning, statistics, visualization and omics.
 - 2025-02-27: Add the demo of survival plot and t-test.
+
+## Citation
+If you find BioMedAgent useful in your research, please cite:
+
+```bibtex
+@article{bu2026empowering,
+  title={Empowering AI data scientists using a multi-agent LLM framework with self-evolving capabilities for autonomous, tool-aware biomedical data analyses},
+  author={Bu, Dechao and Sun, Jingbo and Li, Kun and He, Zihao and Huang, Wei and Hu, Jinlin and Zhang, Shanshan and Lei, Shuangshuang and Huo, Peipei and Wang, Zhihao and others},
+  journal={Nature Biomedical Engineering},
+  pages={1--16},
+  year={2026},
+  publisher={Nature Publishing Group UK London}
+}
+```
