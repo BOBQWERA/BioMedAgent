@@ -5,19 +5,13 @@
 - 2026: Our BioMedAgent paper has been published in *Nature Biomedical Engineering*.
 
 ## Follow Us
-Follow **DrAI Science Exploration** and **VIPaper**.
-
 <table>
   <tr>
-    <td align="center" width="50%">
-      <img src="asserts/drai-science-exploration-qr.jpeg" alt="DrAI Science Exploration WeChat QR code" width="180">
-      <br>
-      <strong>DrAI Science Exploration</strong>
+    <td align="center" valign="top" width="50%">
+      <img src="asserts/drai-science-exploration-qr.jpeg" alt="DrAI Science Exploration WeChat QR code" width="180" height="180">
     </td>
-    <td align="center" width="50%">
-      <img src="asserts/vipaper-qr.jpeg" alt="VIPaper WeChat QR code" width="180">
-      <br>
-      <strong>VIPaper</strong>
+    <td align="center" valign="top" width="50%">
+      <img src="asserts/vipaper-qr.jpeg" alt="VIPaper WeChat QR code" width="180" height="180">
     </td>
   </tr>
 </table>
