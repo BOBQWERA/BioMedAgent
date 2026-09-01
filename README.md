@@ -4,6 +4,28 @@
 - 2026-06-16: The BioMedAgent official website is now available at [drai.cn](http://drai.cn/).
 - 2026: Our BioMedAgent paper has been published in *Nature Biomedical Engineering*.
 
+## Follow Us
+Follow **DrAI Science Exploration** and **VIPaper**.
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="http://weixin.qq.com/r/mp/pEjE3GrEVTcqrS6-9x22">
+        <img src="asserts/drai-science-exploration-qr.jpeg" alt="DrAI Science Exploration WeChat QR code" width="180">
+      </a>
+      <br>
+      <strong>DrAI Science Exploration</strong>
+    </td>
+    <td align="center" width="50%">
+      <a href="http://weixin.qq.com/r/mp/zyoFHRnEXEQjrV1_93-d">
+        <img src="asserts/vipaper-qr.jpeg" alt="VIPaper WeChat QR code" width="180">
+      </a>
+      <br>
+      <strong>VIPaper</strong>
+    </td>
+  </tr>
+</table>
+
 ## Background
 The biomedical field is experiencing a significant expansion in data growth as novel technologies develop, propelled by the vast amounts of medical texts, images, and omics data being collected. Analyzing this data requires complex computational methods that integrates skills from bioinformatics, artificial intelligence, software programming, statistics and mathematics. Various tools and platforms, such as Galaxy and Seven Bridges, provide interfaces for workflow creation and execution, but they face challenges, including reliance on predefined workflows, insufficient support for natural language instructions and lack of summarized readable reports, which restricts intuitive user engagement. Large Language Models (LLMs) have show great advantage in natural language comprehension and demonstrated potential in biomedical data analyses, yet they encounter significant challenges with complex problem planning and low success rate of execution.
 
