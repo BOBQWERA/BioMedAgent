@@ -1,7 +1,7 @@
 # BioMedAgent：Autonomous Biomedical data Analysis by LLM-powered multi-agents with self-evolving capabilities
 
 ## News
-- 2026-09-01: Added WeChat QR codes for DrAI Science Exploration and VIPaper.
+- 2026-09-01: Introducing DrAI Science Exploration and VIPaper, our platforms for scientific exploration and research discovery.
 - 2026-06-16: The BioMedAgent official website is now available at [drai.cn](http://drai.cn/).
 - 2026: Our BioMedAgent paper has been published in *Nature Biomedical Engineering*.
 
