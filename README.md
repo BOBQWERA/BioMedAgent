@@ -10,16 +10,12 @@ Follow **DrAI Science Exploration** and **VIPaper**.
 <table>
   <tr>
     <td align="center" width="50%">
-      <a href="http://weixin.qq.com/r/mp/pEjE3GrEVTcqrS6-9x22">
-        <img src="asserts/drai-science-exploration-qr.jpeg" alt="DrAI Science Exploration WeChat QR code" width="180">
-      </a>
+      <img src="asserts/drai-science-exploration-qr.jpeg" alt="DrAI Science Exploration WeChat QR code" width="180">
       <br>
       <strong>DrAI Science Exploration</strong>
     </td>
     <td align="center" width="50%">
-      <a href="http://weixin.qq.com/r/mp/zyoFHRnEXEQjrV1_93-d">
-        <img src="asserts/vipaper-qr.jpeg" alt="VIPaper WeChat QR code" width="180">
-      </a>
+      <img src="asserts/vipaper-qr.jpeg" alt="VIPaper WeChat QR code" width="180">
       <br>
       <strong>VIPaper</strong>
     </td>
